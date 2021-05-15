@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="阅读, life">
+    <meta name="keywords" content="Arduino贪吃蛇, life">
     <meta name="description" content="唯有爱与科技不可辜负">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>阅读 | HEXO</title>
+    <title>Arduino贪吃蛇 | HEXO</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/Nike.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://gitee.com/yang_jia_cheng2004/image/raw/master/img/c8049b9b880411ebb6edd017c2d2eca2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">阅读</h1>
+                    <h1 class="description center-align post-title">Arduino贪吃蛇</h1>
                 </div>
             </div>
         </div>
@@ -433,8 +433,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%98%85%E8%AF%BB/">
-                                <span class="chip bg-color">阅读</span>
+                            <a href="/tags/Arduino/">
+                                <span class="chip bg-color">Arduino</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/">
+                                <span class="chip bg-color">编程</span>
                             </a>
                         
                     </div>
@@ -445,8 +449,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E9%98%85%E8%AF%BB/" class="post-category">
-                                阅读
+                            <a href="/categories/Arduino/" class="post-category">
+                                Arduino
                             </a>
                         
                     </div>
@@ -458,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-05-02
+                    2021-05-15
                 </div>
                 
 
@@ -467,7 +471,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9
+                    963
                 </div>
                 
 
@@ -487,9 +491,199 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="📕阅读"><a href="#📕阅读" class="headerlink" title="📕阅读"></a>📕阅读</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/02aea2d1e533464e81b70c855ce2d2ff?v=12a2ba9482984805bd65b8b0697cd4c2">https://www.notion.so/02aea2d1e533464e81b70c855ce2d2ff?v=12a2ba9482984805bd65b8b0697cd4c2</a></p>
+                <h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p> <code>Arduino</code>可使用<code>ssd1306</code>驱动的<code>0.96寸OLED屏幕</code>实现经典游戏——贪吃蛇</p>
+<h2 id="U8G2库简介"><a href="#U8G2库简介" class="headerlink" title="U8G2库简介"></a>U8G2库简介</h2><p><code>U8G2</code>是一个单色图像显示库，主要应用于嵌入式设备，可以驱动众多的单色LCD,OLED屏幕。</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/olikraus/u8g2/wiki/u8g2reference#begin">Github</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/dpjcn1990/article/details/92831760">CSDN</a></p>
 </blockquote>
+<h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
+<li><code>Arduino</code>板子</li>
+<li><code>ssd1306</code>驱动0.96寸<code>OLED屏幕</code>（其他屏幕也可以，但要改源码）</li>
+<li><code>按键</code>x4</li>
+<li><code>导线</code>若干</li>
+<li>10kΩ<code>电阻</code>若干<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2></li>
+<li>屏幕采用<code>I2C</code>接口，<code>Arduino UNO</code>的<code>I2C</code>接口定义：<code>A4-SDA</code>；<code>A5—SCL</code>；采用3.3v电压；</li>
+<li><a target="_blank" rel="noopener" href="https://www.arduino.cn/thread-2396-1-1.html">上拉电阻电路简介</a><h2 id="源码及注释"><a href="#源码及注释" class="headerlink" title="源码及注释"></a>源码及注释</h2><pre class="line-numbers language-none"><code class="language-none">#include &lt;Arduino.h&gt;
+#include &lt;U8g2lib.h&gt;
+#include &lt;Wire.h&gt;
+#define UP 0
+#define DOWN 1
+#define LEFT 2
+#define RIGHT 3
+int score = 0; //分数
+int level = 1; //等级
+int speed = 150; //速度
+int i;
+U8G2_SSD1306_128X64_NONAME_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);   //U8G2lib.h屏幕驱动初始
+struct SNAKE                                            // 蛇的结构及初始化
+{
+int head_x ; //蛇头坐标
+int head_y ;
+int x[200];
+int y[200]; 
+int longth;  //蛇的长度
+int dir;     //控制蛇的方向
+int life;
+}snake={16,20,{16,20,24},{20,20,20},3,UP,1};            
+struct FOOD                                             //食物结构及初始化
+{
+    int x;
+    int y;
+    int eaten; //判断食物是否被吃
+}food={24,40,true};
+//按键扫描
+void key(void){
+if(LOW==digitalRead(4)){
+    snake.dir = UP;       //向上
+}
+if(LOW==digitalRead(5)){
+    snake.dir = DOWN;     //向下
+}
+if(LOW==digitalRead(6)){
+    snake.dir = LEFT;     //向左
+}
+if(LOW==digitalRead(7)){
+    snake.dir = RIGHT;    //向右
+}
+}
+//绘制蛇or食物
+void draw_snake(int x,int y){
+u8g2.drawBox(x,y,4,4); //在xy坐标处绘制一个4x4的方块，作为蛇的基本单位
+}
+//初始ui
+void UI()  {
+u8g2.drawFrame(0,0,101,64);//外边界
+u8g2.drawFrame(1,1,99,62);//内边界
+u8g2.setFont(u8g2_font_5x7_tf); //设置字体
+u8g2.drawStr(104,12,"LEVEL");  //显示字体
+u8g2.drawStr(104,40,"SCORE");
+}
+//显示
+void screen(void){ 
+        for (i = 0; i &lt; snake.longth;i++){ //绘制蛇身
+        draw_snake(snake.x[i],snake.y[i]);
+        }       
+        drawscore(104,18,level); //绘制等级
+        drawscore(104,46,score); //绘制分数
+        draw_snake(food.x,food.y); //绘制食物
+
+}
+//生成食物
+/* void draw_food(void){
+    int food_out = 0;//食物是否在蛇体内
+    if(food.eaten==true)
+    {
+        while (food_out == 0){
+            food_out == 1;
+            food.x = (uint8_t)(random(4, 100) / 4) * 4;
+            food.y = (uint8_t)(random(4, 60) / 4) * 4;//生成随机坐标
+            
+            for(int y=snake.longth-1;i &gt; 0;i--){ //判断
+                if(food.x == snake.x[i] &amp;&amp; food.y == snake.y[i])
+                {
+                  food_out=0;//循环
+                }
+            } 
+        }
+        
+    }
+    food.eaten = false;
+}//这一段有点小BUG，可能会无限循环 故弃用*/
+void draw_food(void){
+    if(food.eaten==true)
+    {
+            food.x = (uint8_t)(random(4, 100) / 4) * 4;
+            food.y = (uint8_t)(random(4, 60) / 4) * 4;//生成随机坐标
+        }
+        food.eaten = false; //更新食物状态
+    }
+//移动蛇
+void move(){
+switch (snake.dir) {
+case UP:
+        snake.head_y -=4;
+    if (snake.head_y&lt;=1){
+        snake.head_y=60; 
+    }break;
+case DOWN:
+        snake.head_y +=4;
+    if (snake.head_y&gt;=61){
+        snake.head_y=0; 
+    }break;
+case LEFT:
+        snake.head_x -=4;
+    if (snake.head_x&lt;=1){
+        snake.head_x=96; 
+    }break;
+case RIGHT:
+        snake.head_x +=4;
+    if (snake.head_x&gt;=97){
+        snake.head_x=0; 
+    }break;
+    }
+    if ((snake.head_x==food.x)&amp;&amp;(snake.head_y==food.y))
+    {
+        food.eaten = true;
+        snake.longth++;
+        score++;
+        
+        if (speed&gt;=50)
+        {
+            speed=speed-5*score;
+        }
+        
+        level = score/5 + 1;
+    }
+for (i =snake.longth-1;i&gt;0;i--) 
+{
+    snake.x[i]=snake.x[i-1];
+    snake.y[i]=snake.y[i-1];
+}
+ snake.x[0]=snake.head_x;
+ snake.y[0]=snake.head_y;
+}
+//绘制分数
+void drawscore(int x,int y,int data){
+    u8g2.setFont(u8g2_font_5x7_tf);
+    u8g2.setCursor(x, y);
+    u8g2.print(data);
+}
+void setup(void){
+    pinMode(4,INPUT);
+    pinMode(5,INPUT);
+    pinMode(6,INPUT);
+    pinMode(7,INPUT);
+    digitalWrite(4,HIGH);
+    digitalWrite(5,HIGH);
+    digitalWrite(6,HIGH);
+    digitalWrite(7,HIGH);
+    u8g2.begin(); //U8G2显示函数
+    randomSeed(analogRead(3)); //初始随机数
+}     
+void loop(void){  
+  
+    key();
+    move();
+    draw_food(); //计算相关数据
+    u8g2.firstPage(); //对数据进行显示
+     do{ 
+        UI();
+        screen();
+        } while (u8g2.nextPage());
+         delay(speed); //分数与速度成正比
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="源码修改注意事项"><a href="#源码修改注意事项" class="headerlink" title="源码修改注意事项"></a>源码修改注意事项</h2></li>
+<li>修改蛇的初始位置时注意其<code>xy</code>坐标要是4的倍数，否则蛇可能永远吃不到食物</li>
+<li><code>move()</code>函数中的数值同样要是4的倍数</li>
+<li>U8G2更新显示函数有些 <del>我不知道</del> 不太明确执行顺序问题，更改<code>loop()</code>可能有点BUG<h2 id="接线注意事项"><a href="#接线注意事项" class="headerlink" title="接线注意事项"></a>接线注意事项</h2></li>
+<li>一定一定要用<code>上拉电阻</code>，否则会使引脚悬空，造成干扰</li>
+<li>接线注意屏幕额定电压<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><blockquote>
+<p>博主技术较菜，大佬勿喷</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/TonyIOT/article/details/106713753">贪吃蛇游戏_CSDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://iowiki.com/arduino/arduino_random_numbers.html">Arduino随机数</a></li>
+</ul>
 
                 
             </div>
@@ -516,7 +710,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yjc-2004.github.io/2021/05/02/yue-du/">https://yjc-2004.github.io/2021/05/02/yue-du/</a>
+                    <a href="https://yjc-2004.github.io/2021/05/15/arduino-tan-chi-she/">https://yjc-2004.github.io/2021/05/15/arduino-tan-chi-she/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -554,8 +748,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%98%85%E8%AF%BB/">
-                                    <span class="chip bg-color">阅读</span>
+                                <a href="/tags/Arduino/">
+                                    <span class="chip bg-color">Arduino</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BC%96%E7%A8%8B/">
+                                    <span class="chip bg-color">编程</span>
                                 </a>
                             
                         </div>
@@ -727,9 +925,64 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/05/15/arduino-tan-chi-she/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Arduino贪吃蛇">
+                        
+                        <span class="card-title">Arduino贪吃蛇</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Arduino贪吃蛇教程
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Arduino/" class="post-category">
+                                    Arduino
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Arduino/">
+                        <span class="chip bg-color">Arduino</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">编程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2021/05/02/vscode-bu-shu-arduino-huan-jing/">
                     <div class="card-image">
@@ -746,9 +999,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -770,55 +1023,6 @@
                     
                     <a href="/tags/VScode/">
                         <span class="chip bg-color">VScode</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/05/02/yue-du/">
-                    <div class="card-image">
-                        
-                        <img src="https://gitee.com/yang_jia_cheng2004/image/raw/master/img/c8049b9b880411ebb6edd017c2d2eca2.jpg" class="responsive-img" alt="阅读">
-                        
-                        <span class="card-title">阅读</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            知识有两种，一种是你知道的，一种是你知道在哪里能找到的
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E9%98%85%E8%AF%BB/" class="post-category">
-                                    阅读
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E9%98%85%E8%AF%BB/">
-                        <span class="chip bg-color">阅读</span>
                     </a>
                     
                 </div>
