@@ -312,7 +312,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://gitee.com/yang_jia_cheng2004/image/raw/master/img/20210515141010.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -449,8 +449,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Arduino/" class="post-category">
-                                Arduino
+                            <a href="/categories/%E7%BC%96%E7%A8%8B/" class="post-category">
+                                编程
                             </a>
                         
                     </div>
@@ -471,7 +471,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    963
+                    967
                 </div>
                 
 
@@ -491,19 +491,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p> <code>Arduino</code>可使用<code>ssd1306</code>驱动的<code>0.96寸OLED屏幕</code>实现经典游戏——贪吃蛇</p>
-<h2 id="U8G2库简介"><a href="#U8G2库简介" class="headerlink" title="U8G2库简介"></a>U8G2库简介</h2><p><code>U8G2</code>是一个单色图像显示库，主要应用于嵌入式设备，可以驱动众多的单色LCD,OLED屏幕。</p>
+                <h2 id="序言⚽"><a href="#序言⚽" class="headerlink" title="序言⚽"></a>序言⚽</h2><blockquote>
+<p><code>Arduino</code>可使用<code>ssd1306</code>驱动的<code>0.96寸OLED屏幕</code>实现经典游戏——贪吃蛇🎮</p>
+</blockquote>
+<h2 id="U8G2库简介🕘"><a href="#U8G2库简介🕘" class="headerlink" title="U8G2库简介🕘"></a>U8G2库简介🕘</h2><p><code>U8G2</code>是一个单色图像显示库，主要应用于嵌入式设备，可以驱动众多的单色LCD,OLED屏幕。</p>
 <blockquote>
 <p>参考：<a target="_blank" rel="noopener" href="https://github.com/olikraus/u8g2/wiki/u8g2reference#begin">Github</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/dpjcn1990/article/details/92831760">CSDN</a></p>
 </blockquote>
-<h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
+<h2 id="材料🤖"><a href="#材料🤖" class="headerlink" title="材料🤖"></a>材料🤖</h2><ul>
 <li><code>Arduino</code>板子</li>
-<li><code>ssd1306</code>驱动0.96寸<code>OLED屏幕</code>（其他屏幕也可以，但要改源码）</li>
+<li><code>ssd1306</code>驱动0.96寸<code>OLED屏幕</code>（其他屏幕也可以，但要改源码）📟</li>
 <li><code>按键</code>x4</li>
 <li><code>导线</code>若干</li>
-<li>10kΩ<code>电阻</code>若干<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2></li>
+<li>10kΩ<code>电阻</code>若干<h2 id="连接🔥"><a href="#连接🔥" class="headerlink" title="连接🔥"></a>连接🔥</h2></li>
 <li>屏幕采用<code>I2C</code>接口，<code>Arduino UNO</code>的<code>I2C</code>接口定义：<code>A4-SDA</code>；<code>A5—SCL</code>；采用3.3v电压；</li>
-<li><a target="_blank" rel="noopener" href="https://www.arduino.cn/thread-2396-1-1.html">上拉电阻电路简介</a><h2 id="源码及注释"><a href="#源码及注释" class="headerlink" title="源码及注释"></a>源码及注释</h2><pre class="line-numbers language-none"><code class="language-none">#include &lt;Arduino.h&gt;
+<li>🔗<a target="_blank" rel="noopener" href="https://www.arduino.cn/thread-2396-1-1.html">上拉电阻电路简介</a><h2 id="源码及注释📓"><a href="#源码及注释📓" class="headerlink" title="源码及注释📓"></a>源码及注释📓</h2><pre class="line-numbers language-none"><code class="language-none">#include &lt;Arduino.h&gt;
 #include &lt;U8g2lib.h&gt;
 #include &lt;Wire.h&gt;
 #define UP 0
@@ -672,17 +674,24 @@ void loop(void){
         } while (u8g2.nextPage());
          delay(speed); //分数与速度成正比
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="源码修改注意事项"><a href="#源码修改注意事项" class="headerlink" title="源码修改注意事项"></a>源码修改注意事项</h2></li>
+<h2 id="源码修改注意事项⚠️"><a href="#源码修改注意事项⚠️" class="headerlink" title="源码修改注意事项⚠️"></a>源码修改注意事项⚠️</h2></li>
 <li>修改蛇的初始位置时注意其<code>xy</code>坐标要是4的倍数，否则蛇可能永远吃不到食物</li>
 <li><code>move()</code>函数中的数值同样要是4的倍数</li>
-<li>U8G2更新显示函数有些 <del>我不知道</del> 不太明确执行顺序问题，更改<code>loop()</code>可能有点BUG<h2 id="接线注意事项"><a href="#接线注意事项" class="headerlink" title="接线注意事项"></a>接线注意事项</h2></li>
+<li>U8G2更新显示函数有些 <del>我不知道</del> 不太明确执行顺序问题，更改<code>loop()</code>可能有点BUG<h2 id="接线注意事项⚠️"><a href="#接线注意事项⚠️" class="headerlink" title="接线注意事项⚠️"></a>接线注意事项⚠️</h2></li>
 <li>一定一定要用<code>上拉电阻</code>，否则会使引脚悬空，造成干扰</li>
-<li>接线注意屏幕额定电压<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><blockquote>
-<p>博主技术较菜，大佬勿喷</p>
+<li>接线注意屏幕额定电压</li>
+</ul>
+<figure class="half">
+    <img src="https://gitee.com/yang_jia_cheng2004/image/raw/master/img/20210515135531.png">
+    <img src="https://gitee.com/yang_jia_cheng2004/image/raw/master/img/20210515135531.png">
+</figure>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><blockquote>
+<p>博主技术较菜，大佬勿喷<br>源码 <a target="_blank" rel="noopener" href="https://gitee.com/yang_jia_cheng2004/arduino-snake/blob/master/arduino_code.ino">Gitee</a>🔱</p>
 </blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/TonyIOT/article/details/106713753">贪吃蛇游戏_CSDN</a></li>
-<li><a target="_blank" rel="noopener" href="https://iowiki.com/arduino/arduino_random_numbers.html">Arduino随机数</a></li>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/TonyIOT/article/details/106713753">贪吃蛇游戏_CSDN</a>✔️</li>
+<li><a target="_blank" rel="noopener" href="https://iowiki.com/arduino/arduino_random_numbers.html">Arduino随机数</a>✔️</li>
 </ul>
 
                 
@@ -933,8 +942,7 @@ void loop(void){
                 <a href="/2021/05/15/arduino-tan-chi-she/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Arduino贪吃蛇">
+                        <img src="https://gitee.com/yang_jia_cheng2004/image/raw/master/img/20210515141010.png" class="responsive-img" alt="Arduino贪吃蛇">
                         
                         <span class="card-title">Arduino贪吃蛇</span>
                     </div>
@@ -953,8 +961,8 @@ void loop(void){
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Arduino/" class="post-category">
-                                    Arduino
+                            <a href="/categories/%E7%BC%96%E7%A8%8B/" class="post-category">
+                                    编程
                                 </a>
                             
                             
